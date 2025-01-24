@@ -1,4 +1,4 @@
-function Ship(length){
+exports.Ship = (length) => {
 
     let ship_array = [];
 
@@ -45,7 +45,7 @@ function Ship(length){
 
 }
 
-function Gameboard(){
+exports.Gameboard = () => {
     let x = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
     let y = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
@@ -90,22 +90,58 @@ function Gameboard(){
                     let new_hit_ship = Ship(ship_length);
                     let new_hit_ship_position = new_hit_ship.hit(position);
                     let record = {
+                        coordinates:[c1,c2],
                         ship_code : new_hit_ship,
                         hit_position: [
                             new_hit_ship_position,
                         ]
                     }
                     hit_ships.push(record);
+                }else{
+                    let missed = [c1,c2];
+                    missedShots.push(missed);
                 }
             }
             if(first_coordinate[1] - last_coordinate[1] == 0){
                 if(c1 == first_coordinate[1] && c2 >= first_coordinate[0] && c2 <= last_coordinate[0]){
-                    
+                    let ship_length = first_coordinate[0] - last_coordinate[0];
+                    let position = c2 - first_coordinate[0];
+                    let new_hit_ship = Ship(ship_length);
+                    let new_hit_ship_position = new_hit_ship.hit(position);
+                    let record = {
+                        coordinates:[c1,c2],
+                        ship_code: new_hit_ship,
+                        hit_position:[
+                            new_hit_ship_position,
+                        ]
+                    }
+                    hit_ships.push(record);
+                }else{
+                    let missed = [c1,c2];
+                    missedShots.push(missed);
                 }
             }
+
+            let missed = [c1,c2];
+            missedShots.push(missed);
 
         }
     }
 
+    // let number_of_sunken_ships = () => {
+    //     for(let i=0; i<hit_ships.length; i++){
+
+    //     }
+    // }
+
 }
+
+exports.Player = () => {
+
+    let gameBoard = Gameboard();
+
+}
+
+
+
 
